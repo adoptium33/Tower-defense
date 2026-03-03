@@ -31,6 +31,15 @@ public class Slime extends Enemy {
     }
 
     /**
+     * Slime's movement
+     * @param tower - object, to which monster goes
+     */
+    @Override
+    public void go(Tower tower) {
+        super.go(tower);
+    }
+
+    /**
      * Action, that slime does, when dies
      */
     @Override

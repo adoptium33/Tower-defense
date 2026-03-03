@@ -19,6 +19,22 @@ public abstract class Hero {
     }
 
     /**
+     * Hero's movement
+     * @param enemy - object, to which hero goes
+     */
+    public void go(Enemy enemy) {
+        while (this.x != enemy.getX() + 5 ) {
+            if (this.x < enemy.getX() + 5) {
+                this.x += speed;
+            } else if (this.x > enemy.getX() + 5) {
+                this.x -= speed;
+            } else {
+                //TODO attack method
+            }
+        }
+    }
+
+    /**
      * Method, which increases a hero
      */
     public void lvlUp() {

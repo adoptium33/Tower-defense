@@ -43,6 +43,17 @@ public abstract class Enemy {
     }
 
     /**
+     * Monster's movement
+     *
+     * @param tower - object, to which monster goes
+     */
+    public void go(Tower tower) {
+        while (this.x > tower.getX() + 5) {
+            this.x -= speed;
+        }
+    }
+
+    /**
      * Method, which starts, when monster is dead
      */
     public ArrayList<Enemy> deadAction() {

@@ -8,6 +8,7 @@ public class Tower {
     private int maxHp;
     private int priceOfLvl;
     private int lvl;
+    private int x;
 
     private ArrayList<Knight> knights;
     private ArrayList<Warior> wariors;
@@ -89,5 +90,9 @@ public class Tower {
      */
     public int getPriceOfLvl() {
         return this.priceOfLvl;
+    }
+
+    public int getX() {
+        return this.x;
     }
 }

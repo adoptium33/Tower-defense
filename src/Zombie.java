@@ -31,6 +31,15 @@ public class Zombie extends Enemy {
     }
 
     /**
+     * Zombies's movement
+     * @param tower - object, to which monster goes
+     */
+    @Override
+    public void go(Tower tower) {
+        super.go(tower);
+    }
+
+    /**
      * Action, that zombie does, when dies
      */
     @Override

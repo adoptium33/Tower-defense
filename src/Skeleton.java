@@ -31,6 +31,15 @@ public class Skeleton extends Enemy {
     }
 
     /**
+     *  Skeletons's movement
+     * @param tower - object, to which monster goes
+     */
+    @Override
+    public void go(Tower tower) {
+        super.go(tower);
+    }
+
+    /**
      * Getters
      * @return
      */
