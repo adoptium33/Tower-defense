@@ -20,6 +20,15 @@ public class Knight extends Hero {
     }
 
     /**
+     * Knight's attack
+     * @param enemy - object, attacked by hero
+     */
+    @Override
+    public void attack(Enemy enemy) {
+        super.attack(enemy);
+    }
+
+    /**
      * Method, which increases knight's level
      */
     @Override

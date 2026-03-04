@@ -36,10 +36,11 @@ public abstract class Enemy {
     }
 
     /**
-     * Method for monster's attack
+     * Monster's attack
+     * @param tower - object, attacked by enemy
      */
-    public void attack(Tower tower ) {
-
+    public void attack(Tower tower) {
+        tower.lossHp(this.atk);
     }
 
     /**

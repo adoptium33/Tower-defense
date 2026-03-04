@@ -28,10 +28,16 @@ public abstract class Hero {
                 this.x += speed;
             } else if (this.x > enemy.getX() + 5) {
                 this.x -= speed;
-            } else {
-                //TODO attack method
             }
         }
+    }
+
+    /**
+     * Hero's attack
+     * @param enemy - object, attacked by hero
+     */
+    public void attack(Enemy enemy) {
+        enemy.lossHp(this.atk);
     }
 
     /**

@@ -1,17 +1,17 @@
 /**
  * Class, that extends Hero, characterized Warior
  */
-public class Warior extends Hero {
+public class Warrior extends Hero {
 
     /**
      * Constructor
      */
-    public Warior() {
+    public Warrior() {
         super(0, 0, 120, 30, 20);
     }
 
     /**
-     * Warior's movement
+     * Warrior's movement
      * @param enemy - object, to which hero goes
      */
     @Override
@@ -20,7 +20,16 @@ public class Warior extends Hero {
     }
 
     /**
-     * Method, which increases warior's level
+     * Warrior's attack
+     * @param enemy - object, attacked by hero
+     */
+    @Override
+    public void attack(Enemy enemy) {
+        super.attack(enemy);
+    }
+
+    /**
+     * Method, which increases warrior's level
      */
     @Override
     public void lvlUp() {

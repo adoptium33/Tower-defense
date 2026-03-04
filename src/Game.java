@@ -108,8 +108,8 @@ public class Game {
     /**
      * Method, which adds 1 more warior
      */
-    public void addWarior() {
-        this.tower.addWarior();
+    public void addWarrior() {
+        this.tower.addWarrior();
         this.coins -= 100;
     }
 }

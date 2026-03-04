@@ -23,11 +23,11 @@ public class Zombie extends Enemy {
 
     /**
      * Zombie's attack
-     * @param tower - object, that is damaged by zombie
+     * @param tower - object, attacked by enemy
      */
     @Override
     public void attack(Tower tower) {
-
+        super.attack(tower);
     }
 
     /**

@@ -23,11 +23,11 @@ public class Skeleton extends Enemy {
 
     /**
      * Skeleton's attack
-     * @param tower - object, that is damaged by skeleton
+     * @param tower - object, attacked by enemy
      */
     @Override
     public void attack(Tower tower) {
-
+        super.attack(tower);
     }
 
     /**

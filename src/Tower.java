@@ -11,7 +11,7 @@ public class Tower {
     private int x;
 
     private ArrayList<Knight> knights;
-    private ArrayList<Warior> wariors;
+    private ArrayList<Warrior> warriors;
 
     /**
      * Constructor
@@ -23,11 +23,11 @@ public class Tower {
         this.priceOfLvl = 70;
 
         this.knights = new ArrayList<>();
-        this.wariors = new ArrayList<>();
+        this.warriors = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
             this.knights.add(new Knight());
-            this.wariors.add(new Warior());
+            this.warriors.add(new Warrior());
         }
 
     }
@@ -50,8 +50,8 @@ public class Tower {
         for (Knight knight : this.knights) {
             knight.lvlUp();
         }
-        for (Warior warior : wariors) {
-            warior.lvlUp();
+        for (Warrior warrior : warriors) {
+            warrior.lvlUp();
         }
     }
 
@@ -80,8 +80,8 @@ public class Tower {
     /**
      * Method, which adds 1 more warior
      */
-    public void addWarior() {
-        this.wariors.add(new Warior());
+    public void addWarrior() {
+        this.warriors.add(new Warrior());
     }
 
     /**

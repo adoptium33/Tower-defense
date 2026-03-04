@@ -23,11 +23,11 @@ public class Slime extends Enemy {
 
     /**
      * Slime's attack
-     * @param tower - object, that is damaged by slime
+     * @param tower - object, attacked by enemy
      */
     @Override
     public void attack(Tower tower) {
-
+        super.attack(tower);
     }
 
     /**
