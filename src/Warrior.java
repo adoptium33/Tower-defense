@@ -1,5 +1,5 @@
 /**
- * Class, that extends Hero, characterized Warior
+ * Class, that extends Hero, characterized Warrior
  */
 public class Warrior extends Hero {
 

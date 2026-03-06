@@ -4,7 +4,13 @@ import java.util.ArrayList;
  * Abstract class, which characterizes an enemy
  */
 public abstract class Enemy {
-    private int x, y, hp, maxHp, atk, speed, price;
+    private int x;
+    private int y;
+    private int hp;
+    private int maxHp;
+    private int atk;
+    private int speed;
+    private int price;
     private boolean dead;
 
     /**
@@ -50,7 +56,7 @@ public abstract class Enemy {
      */
     public void go(Tower tower) {
         while (this.x > tower.getX() + 5) {
-            this.x -= speed;
+            this.x -= this.speed;
         }
     }
 
@@ -74,11 +80,11 @@ public abstract class Enemy {
     }
 
     public int getMaxHp() {
-        return maxHp;
+        return this.maxHp;
     }
 
     public int getX() {
-        return x;
+        return this.x;
     }
 
     /**

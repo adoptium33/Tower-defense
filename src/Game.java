@@ -26,6 +26,13 @@ public class Game {
         this.wave = 1;
     }
 
+    public void mainLogic() {
+        this.wave();
+        if (this.skeletons.isEmpty() && this.zombies.isEmpty() && this.slimes.isEmpty()) {
+            //TODO main logic
+        }
+    }
+
     /**
      * Method, which starts the wave
      */
@@ -40,14 +47,12 @@ public class Game {
         for (int i = 0; i < this.wave + 10; i++) {
             this.slimes.add(new Slime());
         }
-
-        //TODO isMonstersAlive logic
     }
 
     /**
      * Method, which finds out if there are alive monsters
      */
-    public void isMonstersAlive() {
+    public void areMonstersAlive() {
         for (int i = this.skeletons.size() - 1; i >= 0; i--) {
             if (this.skeletons.get(i).isDead()) {
                 this.coins += this.skeletons.get(i).getPrice();
@@ -71,7 +76,7 @@ public class Game {
                 ArrayList<Enemy> newSlimes = this.slimes.get(i).deadAction();
                 if (!newSlimes.isEmpty() && newSlimes != null) {
                     for (Enemy slime : newSlimes) {
-                        this.slimes.add((Slime) slime);
+                        this.slimes.add((Slime)slime);
                     }
                 }
 

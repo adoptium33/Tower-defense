@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * Class, that extends Enemy, characterizes a skeleton
  */

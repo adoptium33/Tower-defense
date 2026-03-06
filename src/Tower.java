@@ -18,7 +18,7 @@ public class Tower {
      */
     public Tower() {
         this.hp = 400;
-        this.maxHp = hp;
+        this.maxHp = this.hp;
         this.lvl = 1;
         this.priceOfLvl = 70;
 
@@ -50,7 +50,7 @@ public class Tower {
         for (Knight knight : this.knights) {
             knight.lvlUp();
         }
-        for (Warrior warrior : warriors) {
+        for (Warrior warrior : this.warriors) {
             warrior.lvlUp();
         }
     }

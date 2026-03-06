@@ -1,5 +1,10 @@
 public abstract class Hero {
-    private int x, y, hp, maxHp, atk, speed;
+    private int x;
+    private int y;
+    private int hp;
+    private int maxHp;
+    private int atk;
+    private int speed;
 
     /**
      * Constructor
@@ -25,9 +30,9 @@ public abstract class Hero {
     public void go(Enemy enemy) {
         while (this.x != enemy.getX() + 5 ) {
             if (this.x < enemy.getX() + 5) {
-                this.x += speed;
+                this.x += this.speed;
             } else if (this.x > enemy.getX() + 5) {
-                this.x -= speed;
+                this.x -= this.speed;
             }
         }
     }
