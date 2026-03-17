@@ -26,10 +26,16 @@ public class Game {
         this.wave = 1;
     }
 
+    /**
+     * Method with main game logic
+     */
     public void mainLogic() {
         this.wave();
+        while (!this.skeletons.isEmpty() && !this.zombies.isEmpty() && !this.slimes.isEmpty()) {
+            //TODO monster's animations
+        }
         if (this.skeletons.isEmpty() && this.zombies.isEmpty() && this.slimes.isEmpty()) {
-            //TODO main logic
+            //TODO print on screen "end level" or somethings else, return to screen between levels
         }
     }
 
