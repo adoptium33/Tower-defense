@@ -1,5 +1,7 @@
+package Main;
+
 /**
- * Main class, which starts the program
+ * Main.Main class, which starts the program
  */
 public class Main {
 

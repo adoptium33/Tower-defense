@@ -1,7 +1,11 @@
+package Monsters;
+
+import Player.Tower;
+
 import java.util.ArrayList;
 
 /**
- * Class, which extends Enemy, characterizes a zombie
+ * Class, which extends Monsters.Enemy, characterizes a zombie
  */
 public class Zombie extends Enemy {
 
@@ -13,7 +17,7 @@ public class Zombie extends Enemy {
     }
 
     /**
-     * Zombie losses hp
+     * Monsters.Zombie losses hp
      * @param howMuch - how much hp monster losses
      */
     @Override
@@ -22,7 +26,7 @@ public class Zombie extends Enemy {
     }
 
     /**
-     * Zombie's attack
+     * Monsters.Zombie's attack
      * @param tower - object, attacked by enemy
      */
     @Override

@@ -1,3 +1,7 @@
+package Monsters;
+
+import Player.Tower;
+
 import java.util.ArrayList;
 
 /**

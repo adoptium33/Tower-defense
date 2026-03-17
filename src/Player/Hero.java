@@ -1,3 +1,7 @@
+package Player;
+
+import Monsters.Enemy;
+
 public abstract class Hero {
     private int x;
     private int y;
@@ -24,7 +28,7 @@ public abstract class Hero {
     }
 
     /**
-     * Hero's movement
+     * Player.Hero's movement
      * @param enemy - object, to which hero goes
      */
     public void go(Enemy enemy) {
@@ -38,7 +42,7 @@ public abstract class Hero {
     }
 
     /**
-     * Hero's attack
+     * Player.Hero's attack
      * @param enemy - object, attacked by hero
      */
     public void attack(Enemy enemy) {

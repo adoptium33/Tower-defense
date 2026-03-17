@@ -1,7 +1,11 @@
+package Monsters;
+
+import Player.Tower;
+
 import java.util.ArrayList;
 
 /**
- * Class, which extends Enemy, characterizes a slime
+ * Class, which extends Monsters.Enemy, characterizes a slime
  */
 public class Slime extends Enemy {
 
@@ -13,7 +17,7 @@ public class Slime extends Enemy {
     }
 
     /**
-     * Slime losses hp
+     * Monsters.Slime losses hp
      * @param howMuch - how much hp monster losses
      */
     @Override
@@ -22,7 +26,7 @@ public class Slime extends Enemy {
     }
 
     /**
-     * Slime's attack
+     * Monsters.Slime's attack
      * @param tower - object, attacked by enemy
      */
     @Override
@@ -31,7 +35,7 @@ public class Slime extends Enemy {
     }
 
     /**
-     * Slime's movement
+     * Monsters.Slime's movement
      * @param tower - object, to which monster goes
      */
     @Override

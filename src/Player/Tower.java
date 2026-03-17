@@ -1,7 +1,9 @@
+package Player;
+
 import java.util.ArrayList;
 
 /**
- * Class, which manage the Tower
+ * Class, which manage the Player.Tower
  */
 public class Tower {
     private int hp;
@@ -33,7 +35,7 @@ public class Tower {
     }
 
     /**
-     * Tower losses it's hp
+     * Player.Tower losses it's hp
      * @param howMuch - how much hp the tower losses
      */
     public void lossHp(int howMuch) {

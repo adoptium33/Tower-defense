@@ -1,5 +1,9 @@
+package Monsters;
+
+import Player.Tower;
+
 /**
- * Class, that extends Enemy, characterizes a skeleton
+ * Class, that extends Monsters.Enemy, characterizes a skeleton
  */
 public class Skeleton extends Enemy {
 
@@ -11,7 +15,7 @@ public class Skeleton extends Enemy {
     }
 
     /**
-     * Skeleton losses hp, when attacked
+     * Monsters.Skeleton losses hp, when attacked
      * @param howMuch - how much hp monster losses
      */
     @Override
@@ -20,7 +24,7 @@ public class Skeleton extends Enemy {
     }
 
     /**
-     * Skeleton's attack
+     * Monsters.Skeleton's attack
      * @param tower - object, attacked by enemy
      */
     @Override

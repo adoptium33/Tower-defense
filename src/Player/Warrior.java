@@ -1,17 +1,21 @@
+package Player;
+
+import Monsters.Enemy;
+
 /**
- * Class, that extends Hero, characterized knight
+ * Class, that extends Player.Hero, characterized Player.Warrior
  */
-public class Knight extends Hero {
+public class Warrior extends Hero {
 
     /**
      * Constructor
      */
-    public Knight() {
-        super(0, 0, 200, 40, 10);
+    public Warrior() {
+        super(0, 0, 120, 30, 20);
     }
 
     /**
-     * Knight's movement
+     * Player.Warrior's movement
      * @param enemy - object, to which hero goes
      */
     @Override
@@ -20,7 +24,7 @@ public class Knight extends Hero {
     }
 
     /**
-     * Knight's attack
+     * Player.Warrior's attack
      * @param enemy - object, attacked by hero
      */
     @Override
@@ -29,7 +33,7 @@ public class Knight extends Hero {
     }
 
     /**
-     * Method, which increases knight's level
+     * Method, which increases warrior's level
      */
     @Override
     public void lvlUp() {
