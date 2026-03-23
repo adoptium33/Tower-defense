@@ -16,15 +16,6 @@ public class Warrior extends Hero {
     }
 
     /**
-     * Player.Warrior's movement
-     * @param enemy - object, to which hero goes
-     */
-    @Override
-    public void go(Enemy enemy) {
-        super.go(enemy);
-    }
-
-    /**
      * Player.Warrior's attack. If superhit is active, when warrior kills enemy, increases his lvl
      * @param enemy - object, attacked by hero
      */
@@ -34,22 +25,5 @@ public class Warrior extends Hero {
         if (enemy.isDead() && this.isSuperhit()) {
             this.lvlUp();
         }
-    }
-
-    /**
-     *
-     * @throws InterruptedException
-     */
-    @Override
-    public void superHit() throws InterruptedException {
-        super.superHit();
-    }
-
-    /**
-     * Method, which increases warrior's level
-     */
-    @Override
-    public void lvlUp() {
-        super.lvlUp();
     }
 }

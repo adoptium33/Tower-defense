@@ -1,7 +1,4 @@
 package Monsters;
-
-import Player.Tower;
-
 import java.util.ArrayList;
 
 /**
@@ -17,33 +14,6 @@ public class Zombie extends Enemy {
     }
 
     /**
-     * Monsters.Zombie losses hp
-     * @param howMuch - how much hp monster losses
-     */
-    @Override
-    public void lossHp(int howMuch) {
-        super.lossHp(howMuch);
-    }
-
-    /**
-     * Monsters.Zombie's attack
-     * @param tower - object, attacked by enemy
-     */
-    @Override
-    public void attack(Tower tower) {
-        super.attack(tower);
-    }
-
-    /**
-     * Zombies's movement
-     * @param tower - object, to which monster goes
-     */
-    @Override
-    public void go(Tower tower) {
-        super.go(tower);
-    }
-
-    /**
      * Action, that zombie does, when dies
      */
     @Override
@@ -51,24 +21,5 @@ public class Zombie extends Enemy {
         ArrayList<Enemy> newSkelEton = new ArrayList<>();
         newSkelEton.add(new Skeleton());
         return newSkelEton;
-    }
-
-    /**
-     * Getters
-     * @return
-     */
-    @Override
-    public boolean isDead() {
-        return super.isDead();
-    }
-
-    @Override
-    public int getPrice() {
-        return super.getPrice();
-    }
-
-    @Override
-    public int getMaxHp() {
-        return super.getMaxHp();
     }
 }

@@ -1,7 +1,4 @@
 package Monsters;
-
-import Player.Tower;
-
 import java.util.ArrayList;
 
 /**
@@ -14,33 +11,6 @@ public class Slime extends Enemy {
      */
     public Slime() {
         super(0, 0, 70, 25, 25, 5);
-    }
-
-    /**
-     * Monsters.Slime losses hp
-     * @param howMuch - how much hp monster losses
-     */
-    @Override
-    public void lossHp(int howMuch) {
-        super.lossHp(howMuch);
-    }
-
-    /**
-     * Monsters.Slime's attack
-     * @param tower - object, attacked by enemy
-     */
-    @Override
-    public void attack(Tower tower) {
-        super.attack(tower);
-    }
-
-    /**
-     * Monsters.Slime's movement
-     * @param tower - object, to which monster goes
-     */
-    @Override
-    public void go(Tower tower) {
-        super.go(tower);
     }
 
     /**
@@ -62,38 +32,5 @@ public class Slime extends Enemy {
             return newSlimes;
         }
         return null;
-    }
-
-    /**
-     * Getters
-     * @return
-     */
-    @Override
-    public boolean isDead() {
-        return super.isDead();
-    }
-
-    @Override
-    public int getPrice() {
-        return super.getPrice();
-    }
-
-    @Override
-    public int getMaxHp() {
-        return super.getMaxHp();
-    }
-
-    @Override
-    public int getX() {
-        return super.getX();
-    }
-
-    /**
-     * Setters
-     * @param maxHp - new maxHp
-     */
-    @Override
-    public void setMaxHp(int maxHp) {
-        super.setMaxHp(maxHp);
     }
 }
