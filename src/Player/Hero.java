@@ -5,26 +5,23 @@ import Monsters.Enemy;
 public abstract class Hero {
     private int x;
     private int y;
-    private int hp;
-    private int maxHp;
     private int atk;
     private int speed;
+    private boolean superhit;
 
     /**
      * Constructor
      * @param x     - position x
      * @param y     - position y
-     * @param hp    - hero's hp
      * @param atk   - hero's atk
      * @param speed - hero's speed
      */
-    public Hero(int x, int y, int hp, int atk, int speed) {
+    public Hero(int x, int y, int atk, int speed) {
         this.x = x;
         this.y = y;
-        this.hp = hp;
-        this.maxHp = hp;
         this.atk = atk;
         this.speed = speed;
+        this.superhit = false;
     }
 
     /**
@@ -53,9 +50,41 @@ public abstract class Hero {
      * Method, which increases a hero
      */
     public void lvlUp() {
-        this.hp += 10;
-        this.maxHp += 10;
         this.atk += 5;
         this.speed += 2;
+    }
+
+    /**
+     * Method which allows user to start superHit of hero for a 60 seconds
+     * @throws InterruptedException
+     */
+    public void superHit() throws InterruptedException {
+        Thread timer = new Thread();
+        int seconds = 60;
+        while (seconds > 0) {
+            timer.sleep(1000);
+            seconds--;
+            this.superhit = true;
+        }
+        this.superhit = false;
+    }
+
+    /**
+     * Special methods, which helps with knight's superhit
+     */
+    public void increaseStats () {
+        this.atk += 15;
+        this.speed += 10;
+    }
+    public void decreaseStats () {
+        this.atk -= 15;
+        this.speed -= 10;
+    }
+
+    /**
+     * Getters
+     */
+    public boolean isSuperhit() {
+        return superhit;
     }
 }

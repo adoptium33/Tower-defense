@@ -43,6 +43,10 @@ public abstract class Enemy {
      */
     public void lossHp(int howMuch) {
         this.hp -= howMuch;
+        if (this.hp <= howMuch) {
+            this.dead = true;
+            this.deadAction();
+        }
     }
 
     /**
