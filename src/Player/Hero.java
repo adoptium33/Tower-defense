@@ -55,18 +55,25 @@ public abstract class Hero {
     }
 
     /**
-     * Method which allows user to start superHit of hero for a 60 seconds
-     * @throws InterruptedException
+     * Method which allows user to start superHit of hero for a 60 seconds,
+     * method was fixed by Gemini AI, cause my code interrupts the main thread
      */
-    public void superHit() throws InterruptedException {
-        Thread timer = new Thread();
-        int seconds = 60;
-        while (seconds > 0) {
-            timer.sleep(1000);
-            seconds--;
-            this.superhit = true;
-        }
-        this.superhit = false;
+    public void superHit() {
+        Thread timer = new Thread(() -> {
+            try {
+                this.superhit = true;
+
+                for (int i = 60; i > 0; i--) {
+                    Thread.sleep(1000);
+                }
+
+                this.superhit = false;
+            } catch (InterruptedException e) {
+                this.superhit = false;
+            }
+        });
+
+        timer.start();
     }
 
     /**

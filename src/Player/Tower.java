@@ -1,5 +1,12 @@
 package Player;
 
+import Monsters.Enemy;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.awt.Graphics2D;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -14,6 +21,8 @@ public class Tower {
 
     private ArrayList<Knight> knights;
     private ArrayList<Warrior> warriors;
+
+    private BufferedImage image;
 
     /**
      * Constructor
@@ -32,6 +41,24 @@ public class Tower {
             this.warriors.add(new Warrior());
         }
 
+        try {
+            image = ImageIO.read(new File("path to file")); //TODO create image of tower
+        } catch  (IOException e) {
+            image = null;
+        }
+    }
+
+    /**
+     * The start of hero's moving
+     * @param enemy - object, to which hero moves
+     */
+    public void start(Enemy enemy) {
+        for (Knight knight : this.knights) {
+            knight.go(enemy);
+        }
+        for (Warrior warrior : this.warriors) {
+            warrior.go(enemy);
+        }
     }
 
     /**
@@ -73,6 +100,18 @@ public class Tower {
     }
 
     /**
+     * Method, that turn on superhit
+     */
+    public void superHit() {
+        for (Knight knight : this.knights) {
+            knight.superHit();
+        }
+        for (Warrior warrior : this.warriors) {
+            warrior.superHit();
+        }
+    }
+
+    /**
      * Method, which adds 1 more knight
      */
     public void addKnight() {
@@ -84,6 +123,14 @@ public class Tower {
      */
     public void addWarrior() {
         this.warriors.add(new Warrior());
+    }
+
+    /**
+     * Method, which draws tower
+     * @param g2 - allows to draw image
+     */
+    public void draw(Graphics2D g2) {
+        g2.drawImage(this.image, this.x, 0, 100, 100, null); //TODO correct size and y
     }
 
     /**
