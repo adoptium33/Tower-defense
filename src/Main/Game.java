@@ -15,29 +15,24 @@ import java.util.ArrayList;
  * Class, which has the largest part of game's logic
  */
 public class Game extends JPanel implements ActionListener {
-    private ArrayList<Skeleton> skeletons;
-    private ArrayList<Zombie> zombies;
-    private ArrayList<Slime> slimes;
-
+    private ArrayList<Enemy> enemies;
     private Tower tower;
 
     private int wave;
     private int coins;
 
-    private Timer timer = new Timer(100, this);
+    private Timer timer;
 
     /**
      * Constructor
      */
     public Game() {
-        this.skeletons = new ArrayList<>();
-        this.zombies = new ArrayList<>();
-        this.slimes = new ArrayList<>();
-
+        this.enemies = new ArrayList<>();
         this.tower = new Tower();
 
         this.wave = 1;
 
+        this.timer = new Timer(100, this);
         this.timer.start();
     }
 
@@ -46,62 +41,49 @@ public class Game extends JPanel implements ActionListener {
      */
     public void mainLogic() {
         this.wave();
-        while (!this.skeletons.isEmpty() && !this.zombies.isEmpty() && !this.slimes.isEmpty()) {
-            //TODO monster's animations
+
+        Enemy nearest = enemies.get(0);
+        for (Enemy enemy : this.enemies) {
+            enemy.go(this.tower);
+            if (enemy.getX() < nearest.getX()) {
+                nearest = enemy;
+            }
         }
-        if (this.skeletons.isEmpty() && this.zombies.isEmpty() && this.slimes.isEmpty()) {
-            //TODO print on screen "end level" or somethings else, return to screen between levels
-        }
+        this.tower.start(nearest);
     }
 
     /**
      * Method, which starts the wave
      */
     public void wave() {
-
         for (int i = 0; i < this.wave + 5; i++) {
-            this.skeletons.add(new Skeleton());
+            this.enemies.add(new Skeleton());
         }
         for (int i = 0; i < this.wave + 5; i++) {
-            this.zombies.add(new Zombie());
+            this.enemies.add(new Zombie());
         }
         for (int i = 0; i < this.wave + 10; i++) {
-            this.slimes.add(new Slime());
+            this.enemies.add(new Slime());
         }
+        repaint();
     }
 
     /**
      * Method, which finds out if there are alive monsters
      */
     public void areMonstersAlive() {
-        for (int i = this.skeletons.size() - 1; i >= 0; i--) {
-            if (this.skeletons.get(i).isDead()) {
-                this.coins += this.skeletons.get(i).getPrice();
-                this.skeletons.get(i).deadAction();
-                this.skeletons.remove(i);
-            }
-        }
+        for (int i = this.enemies.size() - 1; i >= 0; i--) {
+            if (this.enemies.get(i).isDead()) {
+                this.coins += this.enemies.get(i).getPrice();
 
-        for (int i = this.zombies.size() - 1; i >= 0; i--) {
-            if (this.zombies.get(i).isDead()) {
-                this.coins += this.zombies.get(i).getPrice();
-                this.skeletons.get(i).deadAction();
-                this.zombies.remove(i);
-            }
-        }
-
-        for (int i = this.slimes.size() - 1; i >= 0; i--) {
-            if (this.slimes.get(i).isDead()) {
-                this.coins += this.slimes.get(i).getPrice();
-
-                ArrayList<Enemy> newSlimes = this.slimes.get(i).deadAction();
-                if (!newSlimes.isEmpty() && newSlimes != null) {
-                    for (Enemy slime : newSlimes) {
-                        this.slimes.add((Slime)slime);
+                ArrayList<Enemy> newEnemies = this.enemies.get(i).deadAction();
+                if (!newEnemies.isEmpty() && newEnemies != null) {
+                    for (Enemy enemy : newEnemies) {
+                        this.enemies.add(enemy);
                     }
                 }
 
-                this.slimes.remove(i);
+                this.enemies.remove(i);
             }
         }
     }

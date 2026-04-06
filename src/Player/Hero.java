@@ -44,6 +44,7 @@ public abstract class Hero {
                 this.frame = 1;
             }
         }
+        this.attack(enemy);
     }
 
     /**
@@ -51,9 +52,10 @@ public abstract class Hero {
      * @param enemy - object, attacked by hero
      */
     public void attack(Enemy enemy) {
-        enemy.lossHp(this.atk);
-
         this.frame = 2;
+        while (!enemy.isDead()) {
+            enemy.lossHp(this.atk);
+        }
     }
 
     /**
