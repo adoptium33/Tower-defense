@@ -1,5 +1,6 @@
 package Monsters;
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,12 +14,17 @@ public class Slime extends Enemy {
     private BufferedImage[] attack = new BufferedImage[2];
     private BufferedImage[] death = new BufferedImage[2];
 
+    private int animationTick;
+    private int currentFrame;
+
     /**
      * Constructor
      */
     public Slime() {
         super(0, 0, 70, 25, 25, 5);
 
+        this.animationTick = 0;
+        this.currentFrame = 0;
         //TODO create slime's images
         try {
             this.move[0] = ImageIO.read(new File("path to file"));
@@ -60,5 +66,32 @@ public class Slime extends Enemy {
             return newSlimes;
         }
         return null;
+    }
+
+    /**
+     * Method, which draws the slime
+     * @param g2 - allows to draw images
+     */
+    public void draw(Graphics2D g2) {
+        BufferedImage currentImage = null;
+        if (this.animationTick >= 5) {
+            this.currentFrame++;
+            if (this.currentFrame == 2) {
+                this.currentFrame = 0;
+            }
+
+            switch (this.getFrame()) {
+                case 0:
+                    currentImage = this.move[currentFrame];
+                    break;
+                case 1:
+                    currentImage = this.attack[currentFrame];
+                    break;
+                case 2:
+                    currentImage = this.death[currentFrame];
+                    break;
+            }
+        }
+        g2.drawImage(currentImage, this.getX(), this.getY(), 100, 100, null);
     }
 }

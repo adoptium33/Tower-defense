@@ -17,6 +17,8 @@ public abstract class Enemy {
     private int price;
     private boolean dead;
 
+    private int frame;
+
     /**
      * Constructor
      * @param x     - position x
@@ -35,6 +37,8 @@ public abstract class Enemy {
         this.speed = speed;
         this.price = price;
         this.dead = false;
+
+        this.frame = 3;
     }
 
     /**
@@ -45,6 +49,7 @@ public abstract class Enemy {
         this.hp -= howMuch;
         if (this.hp <= howMuch) {
             this.dead = true;
+            this.frame = 2;
             this.deadAction();
         }
     }
@@ -55,6 +60,7 @@ public abstract class Enemy {
      */
     public void attack(Tower tower) {
         tower.lossHp(this.atk);
+        this.frame = 1;
     }
 
     /**
@@ -65,6 +71,7 @@ public abstract class Enemy {
     public void go(Tower tower) {
         while (this.x > tower.getX() + 5) {
             this.x -= this.speed;
+            this.frame = 0;
         }
     }
 
@@ -93,6 +100,14 @@ public abstract class Enemy {
 
     public int getX() {
         return this.x;
+    }
+
+    public int getY() {
+        return this.y;
+    }
+
+    public int getFrame() {
+        return this.frame;
     }
 
     /**

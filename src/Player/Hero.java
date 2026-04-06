@@ -9,6 +9,8 @@ public abstract class Hero {
     private int speed;
     private boolean superhit;
 
+    private int frame;
+
     /**
      * Constructor
      * @param x     - position x
@@ -22,6 +24,8 @@ public abstract class Hero {
         this.atk = atk;
         this.speed = speed;
         this.superhit = false;
+
+        this.frame = 3;
     }
 
     /**
@@ -29,11 +33,15 @@ public abstract class Hero {
      * @param enemy - object, to which hero goes
      */
     public void go(Enemy enemy) {
-        while (this.x != enemy.getX() + 5 ) {
-            if (this.x < enemy.getX() + 5) {
+        while (this.x != enemy.getX() + 5 || this.x != enemy.getX() - 5) {
+            if (this.x < enemy.getX() - 5) {
                 this.x += this.speed;
+
+                this.frame = 0;
             } else if (this.x > enemy.getX() + 5) {
                 this.x -= this.speed;
+
+                this.frame = 1;
             }
         }
     }
@@ -44,6 +52,8 @@ public abstract class Hero {
      */
     public void attack(Enemy enemy) {
         enemy.lossHp(this.atk);
+
+        this.frame = 2;
     }
 
     /**
@@ -93,5 +103,17 @@ public abstract class Hero {
      */
     public boolean isSuperhit() {
         return superhit;
+    }
+
+    public int getX() {
+        return this.x;
+    }
+
+    public int getY() {
+        return this.y;
+    }
+
+    public int getFrame() {
+        return this.frame;
     }
 }

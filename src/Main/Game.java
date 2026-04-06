@@ -6,12 +6,15 @@ import Monsters.Slime;
 import Monsters.Zombie;
 import Player.Tower;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
  * Class, which has the largest part of game's logic
  */
-public class Game {
+public class Game extends JPanel implements ActionListener {
     private ArrayList<Skeleton> skeletons;
     private ArrayList<Zombie> zombies;
     private ArrayList<Slime> slimes;
@@ -20,6 +23,8 @@ public class Game {
 
     private int wave;
     private int coins;
+
+    private Timer timer = new Timer(100, this);
 
     /**
      * Constructor
@@ -32,6 +37,8 @@ public class Game {
         this.tower = new Tower();
 
         this.wave = 1;
+
+        this.timer.start();
     }
 
     /**
@@ -130,5 +137,14 @@ public class Game {
     public void addWarrior() {
         this.tower.addWarrior();
         this.coins -= 100;
+    }
+
+    /**
+     * Method, which repaint all objects when Timer does a tick
+     * @param e the event to be processed
+     */
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        repaint();
     }
 }
