@@ -2,6 +2,7 @@ package Monsters;
 
 import Player.Tower;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -80,6 +81,14 @@ public abstract class Enemy {
      */
     public ArrayList<Enemy> deadAction() {
         return null;
+    }
+
+    /**
+     * Method, that draws enemy to screen
+     * @param g2 - allows to draw images
+     */
+    public void draw(Graphics2D g2) {
+
     }
 
     /**

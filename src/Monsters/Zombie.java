@@ -61,6 +61,7 @@ public class Zombie extends Enemy {
      * Method, which draws the zombie
      * @param g2 - allows to draw images
      */
+    @Override
     public void draw(Graphics2D g2) {
         BufferedImage currentImage = null;
         if (this.animationTick >= 5) {

@@ -6,9 +6,14 @@ import Monsters.Slime;
 import Monsters.Zombie;
 import Player.Tower;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -22,6 +27,7 @@ public class Game extends JPanel implements ActionListener {
     private int coins;
 
     private Timer timer;
+    private BufferedImage background;
 
     /**
      * Constructor
@@ -34,6 +40,12 @@ public class Game extends JPanel implements ActionListener {
 
         this.timer = new Timer(100, this);
         this.timer.start();
+        try {
+            this.background = ImageIO.read(new File("path to file")); //TODO create background image
+        } catch (IOException e) {
+            background = null;
+            System.out.println("Wrong path to background file");
+        }
     }
 
     /**
@@ -128,5 +140,23 @@ public class Game extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         repaint();
+    }
+
+    /**
+     * Method, that draws all objects to screen
+     * @param g the <code>Graphics</code> object to protect
+     */
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        Graphics2D g2 = (Graphics2D) g;
+
+        g2.drawImage(this.background, 0, 0, 100, 100, null); //TODO correct width and height to window size
+
+        this.tower.draw(g2);
+        for (Enemy enemy : this.enemies) {
+            enemy.draw(g2);
+        }
     }
 }
