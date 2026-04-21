@@ -12,14 +12,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * Class, which has the largest part of game's logic
  */
-public class Game extends JPanel implements ActionListener {
+public class Game extends JPanel implements Runnable, ActionListener {
     private ArrayList<Enemy> enemies;
     private Tower tower;
 
@@ -36,16 +35,29 @@ public class Game extends JPanel implements ActionListener {
         this.enemies = new ArrayList<>();
         this.tower = new Tower();
 
+        this.setPreferredSize(new Dimension(1400, 800));
+
         this.wave = 1;
 
         this.timer = new Timer(100, this);
         this.timer.start();
         try {
-            this.background = ImageIO.read(new File("path to file")); //TODO create background image
+            this.background = ImageIO.read(getClass().getResource("/background.png"));
         } catch (IOException e) {
             background = null;
             System.out.println("Wrong path to background file");
         }
+
+        Thread t = new Thread();
+        t.start();
+    }
+
+    /**
+     * Method from interface Runnable, which allows to start the program
+     */
+    @Override
+    public void run() {
+        //TODO method run logic
     }
 
     /**
@@ -54,14 +66,16 @@ public class Game extends JPanel implements ActionListener {
     public void mainLogic() {
         this.wave();
 
-        Enemy nearest = enemies.get(0);
-        for (Enemy enemy : this.enemies) {
-            enemy.go(this.tower);
-            if (enemy.getX() < nearest.getX()) {
-                nearest = enemy;
+        while (!enemies.isEmpty()) {
+            Enemy nearest = enemies.get(0);
+            for (Enemy enemy : this.enemies) {
+                enemy.go(this.tower);
+                if (enemy.getX() < nearest.getX()) {
+                    nearest = enemy;
+                }
             }
+            this.tower.start(nearest);
         }
-        this.tower.start(nearest);
     }
 
     /**
@@ -142,6 +156,7 @@ public class Game extends JPanel implements ActionListener {
         repaint();
     }
 
+
     /**
      * Method, that draws all objects to screen
      * @param g the <code>Graphics</code> object to protect
@@ -152,7 +167,7 @@ public class Game extends JPanel implements ActionListener {
 
         Graphics2D g2 = (Graphics2D) g;
 
-        g2.drawImage(this.background, 0, 0, 100, 100, null); //TODO correct width and height to window size
+        g2.drawImage(this.background, 0, 0, 1400, 800, null); //TODO correct width and height to window size
 
         this.tower.draw(g2);
         for (Enemy enemy : this.enemies) {

@@ -27,16 +27,15 @@ public class Knight extends Hero {
 
         this.animationTick = 0;
         this.currentFrame = 0;
-        //TODO create knight's images
         try {
-            this.moveRight[0] = ImageIO.read(new File("path to file"));
-            this.moveRight[1] = ImageIO.read(new File("path to file"));
+            this.moveRight[0] = ImageIO.read(getClass().getResource("/knight/knightMoveRight1.png"));
+            this.moveRight[1] = ImageIO.read(getClass().getResource("/knight/knightMoveRight2.png"));
 
-            this.moveLeft[0] = ImageIO.read(new File("path to file"));
-            this.moveLeft[1] = ImageIO.read(new File("path to file"));
+            this.moveLeft[0] = ImageIO.read(getClass().getResource("/knight/knightMoveLeft1.png"));
+            this.moveLeft[1] = ImageIO.read(getClass().getResource("/knight/knightMoveLeft2.png"));
 
-            this.attack[0] = ImageIO.read(new File("path to file"));
-            this.attack[1] = ImageIO.read(new File("path to file"));
+            this.attack[0] = ImageIO.read(getClass().getResource("/knight/knightAttack1.png"));
+            this.attack[1] = ImageIO.read(getClass().getResource("/knight/knightAttack2.png"));
         } catch (IOException e) {
             this.moveRight[0] = null;
             this.moveRight[1] = null;

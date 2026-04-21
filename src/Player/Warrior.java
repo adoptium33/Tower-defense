@@ -30,16 +30,15 @@ public class Warrior extends Hero {
 
         this.animationTick = 0;
         this.currentFrame = 0;
-        //TODO create warrior's images
         try {
-            this.moveRight[0] = ImageIO.read(new File("path to file"));
-            this.moveRight[1] = ImageIO.read(new File("path to file"));
+            this.moveRight[0] = ImageIO.read(getClass().getResource("/warrior/warriorMoveRight1.png"));
+            this.moveRight[1] = ImageIO.read(getClass().getResource("/warrior/warriorMoveRight2.png"));
 
-            this.moveLeft[0] = ImageIO.read(new File("path to file"));
-            this.moveLeft[1] = ImageIO.read(new File("path to file"));
+            this.moveLeft[0] = ImageIO.read(getClass().getResource("/warrior/warriorMoveLeft1.png"));
+            this.moveLeft[1] = ImageIO.read(getClass().getResource("/warrior/warriorMoveLeft2.png"));
 
-            this.attack[0] = ImageIO.read(new File("path to file"));
-            this.attack[1] = ImageIO.read(new File("path to file"));
+            this.attack[0] = ImageIO.read(getClass().getResource("/warrior/warriorAttack1.png"));
+            this.attack[1] = ImageIO.read(getClass().getResource("/warrior/warriorAttack2.png"));
         } catch (IOException e) {
             this.moveRight[0] = null;
             this.moveRight[1] = null;

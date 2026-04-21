@@ -25,16 +25,15 @@ public class Zombie extends Enemy {
 
         this.animationTick = 0;
         this.currentFrame = 0;
-        //TODO create zombie's images
         try {
-            this.move[0] = ImageIO.read(new File("path to file"));
-            this.move[1] = ImageIO.read(new File("path to file"));
+            this.move[0] = ImageIO.read(getClass().getResource("/zombie/zombieGo1.png"));
+            this.move[1] = ImageIO.read(getClass().getResource("/zombie/zombieGo2.png"));
 
-            this.attack[0] = ImageIO.read(new File("path to file"));
-            this.attack[1] = ImageIO.read(new File("path to file"));
+            this.attack[0] = ImageIO.read(getClass().getResource("/zombie/zombieGo1.png"));
+            this.attack[1] = ImageIO.read(getClass().getResource("/zombie/zombieAttack2.png"));
 
-            this.death[0] = ImageIO.read(new File("path to file"));
-            this.death[1] = ImageIO.read(new File("path to file"));
+            this.death[0] = ImageIO.read(getClass().getResource("/zombie/zombieGo1.png"));
+            this.death[1] = ImageIO.read(getClass().getResource("/zombie/zombieDeath2.png"));
         } catch (IOException e) {
             this.move[0] = null;
             this.move[1] = null;

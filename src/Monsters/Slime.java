@@ -25,16 +25,15 @@ public class Slime extends Enemy {
 
         this.animationTick = 0;
         this.currentFrame = 0;
-        //TODO create slime's images
         try {
-            this.move[0] = ImageIO.read(new File("path to file"));
-            this.move[1] = ImageIO.read(new File("path to file"));
+            this.move[0] = ImageIO.read(getClass().getResource("/slime/slimeGo1.png"));
+            this.move[1] = ImageIO.read(getClass().getResource("/slime/slimeGo2.png"));
 
-            this.attack[0] = ImageIO.read(new File("path to file"));
-            this.attack[1] = ImageIO.read(new File("path to file"));
+            this.attack[0] = ImageIO.read(getClass().getResource("/slime/slimeGo1.png"));
+            this.attack[1] = ImageIO.read(getClass().getResource("/slime/slimeAttack2.png"));
 
-            this.death[0] = ImageIO.read(new File("path to file"));
-            this.death[1] = ImageIO.read(new File("path to file"));
+            this.death[0] = ImageIO.read(getClass().getResource("/slime/slimeGo1.png"));
+            this.death[1] = ImageIO.read(getClass().getResource("/slime/slimeDeath2.png"));
         } catch (IOException e) {
             this.move[0] = null;
             this.move[1] = null;
