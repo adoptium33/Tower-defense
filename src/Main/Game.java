@@ -25,7 +25,6 @@ public class Game extends JPanel implements Runnable, ActionListener {
     private int wave;
     private int coins;
 
-    private Timer timer;
     private BufferedImage background;
 
     /**
@@ -34,13 +33,10 @@ public class Game extends JPanel implements Runnable, ActionListener {
     public Game() {
         this.enemies = new ArrayList<>();
         this.tower = new Tower();
+        this.wave = 1;
+        this.coins = 0;
 
         this.setPreferredSize(new Dimension(1400, 800));
-
-        this.wave = 1;
-
-        this.timer = new Timer(100, this);
-        this.timer.start();
         try {
             this.background = ImageIO.read(getClass().getResource("/background.png"));
         } catch (IOException e) {
@@ -48,7 +44,7 @@ public class Game extends JPanel implements Runnable, ActionListener {
             System.out.println("Wrong path to background file");
         }
 
-        Thread t = new Thread();
+        Thread t = new Thread();   //TODO try Timer class instead of Thread and Runnable
         t.start();
     }
 
@@ -82,16 +78,23 @@ public class Game extends JPanel implements Runnable, ActionListener {
      * Method, which starts the wave
      */
     public void wave() {
+        int x = 0;
+        int y = 0;
         for (int i = 0; i < this.wave + 5; i++) {
-            this.enemies.add(new Skeleton());
+            this.enemies.add(new Skeleton(1300 + x, 600 + y));
+
+            this.enemies.add(new Zombie(1300 + x, 650 - y));
+
+            this.enemies.add(new Slime(1100 + x, 600 + y));
+            this.enemies.add(new Slime(1100 + x, 650 - y));
+
+            x += 10;
+            if (y > 0) {
+                y = -10;
+            } else {
+                y = 10;
+            }
         }
-        for (int i = 0; i < this.wave + 5; i++) {
-            this.enemies.add(new Zombie());
-        }
-        for (int i = 0; i < this.wave + 10; i++) {
-            this.enemies.add(new Slime());
-        }
-        repaint();
     }
 
     /**
@@ -167,7 +170,7 @@ public class Game extends JPanel implements Runnable, ActionListener {
 
         Graphics2D g2 = (Graphics2D) g;
 
-        g2.drawImage(this.background, 0, 0, 1400, 800, null); //TODO correct width and height to window size
+        g2.drawImage(this.background, 0, 0, 1400, 800, null);
 
         this.tower.draw(g2);
         for (Enemy enemy : this.enemies) {

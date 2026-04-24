@@ -3,46 +3,23 @@ package Monsters;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 /**
  * Class, that extends Monsters.Enemy, characterizes a skeleton
  */
 public class Skeleton extends Enemy {
-    private BufferedImage[] move = new BufferedImage[2];
-    private BufferedImage[] attack = new BufferedImage[2];
-    private BufferedImage[] death = new BufferedImage[2];
-
-    private int animationTick;
-    private int currentFrame;
+    private BufferedImage image;
 
     /**
      * Constructor
      */
-    public Skeleton() {
-        super(0, 0, 100, 40, 15, 10);
-
-        this.animationTick = 0;
-        this.currentFrame = 0;
+    public Skeleton(int x, int y) {
+        super(x, y, 100, 40, 15, 10);
         try {
-            this.move[0] = ImageIO.read(getClass().getResource("/skeleton/skeletonGo1.png"));
-            this.move[1] = ImageIO.read(getClass().getResource("/skeleton/skeletonGo2.png"));
-
-            this.attack[0] = ImageIO.read(getClass().getResource("/skeleton/skeletonGo1.png"));
-            this.attack[1] = ImageIO.read(getClass().getResource("/skeleton/skeletonAttack2.png"));
-
-            this.death[0] = ImageIO.read(getClass().getResource("/skeleton/skeletonGo1.png"));
-            this.death[1] = ImageIO.read(getClass().getResource("/skeleton/skeletonDeath2.png"));
+            this.image = ImageIO.read(getClass().getResource("/skeleton/skeletonGo1.png"));
         } catch (IOException e) {
-            this.move[0] = null;
-            this.move[1] = null;
-
-            this.attack[0] = null;
-            this.attack[1] = null;
-
-            this.death[0] = null;
-            this.death[1] = null;
+            this.image = null;
         }
     }
 
@@ -52,25 +29,6 @@ public class Skeleton extends Enemy {
      */
     @Override
     public void draw(Graphics2D g2) {
-        BufferedImage currentImage = null;
-        if (this.animationTick >= 5) {
-            this.currentFrame++;
-            if (this.currentFrame == 2) {
-                this.currentFrame = 0;
-            }
-
-            switch (this.getFrame()) {
-                case 0:
-                    currentImage = this.move[currentFrame];
-                    break;
-                case 1:
-                    currentImage = this.attack[currentFrame];
-                    break;
-                case 2:
-                    currentImage = this.death[currentFrame];
-                    break;
-            }
-        }
-        g2.drawImage(currentImage, this.getX(), this.getY(), 100, 100, null);
+        g2.drawImage(this.image, this.getX(), this.getY(), 50, 50, null);
     }
 }

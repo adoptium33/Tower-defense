@@ -2,7 +2,6 @@ package Monsters;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -10,39 +9,17 @@ import java.util.ArrayList;
  * Class, which extends Monsters.Enemy, characterizes a slime
  */
 public class Slime extends Enemy {
-    private BufferedImage[] move = new BufferedImage[2];
-    private BufferedImage[] attack = new BufferedImage[2];
-    private BufferedImage[] death = new BufferedImage[2];
-
-    private int animationTick;
-    private int currentFrame;
+    private BufferedImage image;
 
     /**
      * Constructor
      */
-    public Slime() {
-        super(0, 0, 70, 25, 25, 5);
-
-        this.animationTick = 0;
-        this.currentFrame = 0;
+    public Slime(int x, int y) {
+        super(x, y, 70, 25, 25, 5);
         try {
-            this.move[0] = ImageIO.read(getClass().getResource("/slime/slimeGo1.png"));
-            this.move[1] = ImageIO.read(getClass().getResource("/slime/slimeGo2.png"));
-
-            this.attack[0] = ImageIO.read(getClass().getResource("/slime/slimeGo1.png"));
-            this.attack[1] = ImageIO.read(getClass().getResource("/slime/slimeAttack2.png"));
-
-            this.death[0] = ImageIO.read(getClass().getResource("/slime/slimeGo1.png"));
-            this.death[1] = ImageIO.read(getClass().getResource("/slime/slimeDeath2.png"));
+            this.image = ImageIO.read(getClass().getResource("/slime/slimeGo1.png"));
         } catch (IOException e) {
-            this.move[0] = null;
-            this.move[1] = null;
-
-            this.attack[0] = null;
-            this.attack[1] = null;
-
-            this.death[0] = null;
-            this.death[1] = null;
+            this.image = null;
         }
     }
 
@@ -54,11 +31,11 @@ public class Slime extends Enemy {
         if (this.getMaxHp() >= 50) {
             ArrayList<Enemy> newSlimes = new ArrayList<>();
 
-            Slime slime1 = new Slime();
+            Slime slime1 = new Slime(this.getX(), this.getY() - 10);
             slime1.setMaxHp(this.getMaxHp() / 2);
             newSlimes.add(slime1);
 
-            Slime slime2 = new Slime();
+            Slime slime2 = new Slime(this.getX(), this.getY());
             slime2.setMaxHp(this.getMaxHp() / 2);
             newSlimes.add(slime2);
 
@@ -73,25 +50,6 @@ public class Slime extends Enemy {
      */
     @Override
     public void draw(Graphics2D g2) {
-        BufferedImage currentImage = null;
-        if (this.animationTick >= 5) {
-            this.currentFrame++;
-            if (this.currentFrame == 2) {
-                this.currentFrame = 0;
-            }
-
-            switch (this.getFrame()) {
-                case 0:
-                    currentImage = this.move[currentFrame];
-                    break;
-                case 1:
-                    currentImage = this.attack[currentFrame];
-                    break;
-                case 2:
-                    currentImage = this.death[currentFrame];
-                    break;
-            }
-        }
-        g2.drawImage(currentImage, this.getX(), this.getY(), 100, 100, null);
+        g2.drawImage(this.image, this.getX(), this.getY(), 50, 50, null);
     }
 }

@@ -5,7 +5,6 @@ import Monsters.Enemy;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -17,7 +16,6 @@ public class Tower {
     private int maxHp;
     private int priceOfLvl;
     private int lvl;
-    private int x;
 
     private ArrayList<Knight> knights;
     private ArrayList<Warrior> warriors;
@@ -36,13 +34,21 @@ public class Tower {
         this.knights = new ArrayList<>();
         this.warriors = new ArrayList<>();
 
+        int x = 0;
+        int y = 10;
         for (int i = 0; i < 5; i++) {
-            this.knights.add(new Knight());
-            this.warriors.add(new Warrior());
+            this.knights.add(new Knight(500 + x, 650 - y));
+            this.warriors.add(new Warrior(500 + x, 600 + y));
+            x += 10;
+            if (y > 0) {
+                y = -10;
+            } else {
+                y = 10;
+            }
         }
 
         try {
-            image = ImageIO.read(new File("path to file")); //TODO create image of tower
+            image = ImageIO.read(getClass().getResource("/tower.png"));
         } catch  (IOException e) {
             image = null;
         }
@@ -115,14 +121,14 @@ public class Tower {
      * Method, which adds 1 more knight
      */
     public void addKnight() {
-        this.knights.add(new Knight());
+        this.knights.add(new Knight(500, 650));
     }
 
     /**
      * Method, which adds 1 more warior
      */
     public void addWarrior() {
-        this.warriors.add(new Warrior());
+        this.warriors.add(new Warrior(500, 600));
     }
 
     /**
@@ -130,7 +136,14 @@ public class Tower {
      * @param g2 - allows to draw image
      */
     public void draw(Graphics2D g2) {
-        g2.drawImage(this.image, this.x, 0, 100, 100, null); //TODO correct size and y
+        g2.drawImage(this.image, 0, 200, 500, 500, null);
+
+        for (Knight k : this.knights) {
+            k.draw(g2);
+        }
+        for (Warrior w : this.warriors) {
+            w.draw(g2);
+        }
     }
 
     /**
@@ -142,6 +155,6 @@ public class Tower {
     }
 
     public int getX() {
-        return this.x;
+        return 0;
     }
 }

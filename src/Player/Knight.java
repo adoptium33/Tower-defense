@@ -5,46 +5,23 @@ import Monsters.Enemy;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 /**
  * Class, that extends Player.Hero, characterized knight
  */
 public class Knight extends Hero {
-    private BufferedImage[] moveRight = new BufferedImage[2];
-    private BufferedImage[] moveLeft = new BufferedImage[2];
-    private BufferedImage[] attack = new BufferedImage[2];
-
-    private int animationTick;
-    private int currentFrame;
+    private BufferedImage image;
 
     /**
      * Constructor
      */
-    public Knight() {
-        super(0, 0, 40, 10);
-
-        this.animationTick = 0;
-        this.currentFrame = 0;
+    public Knight(int x, int y) {
+        super(x, y, 40, 10);
         try {
-            this.moveRight[0] = ImageIO.read(getClass().getResource("/knight/knightMoveRight1.png"));
-            this.moveRight[1] = ImageIO.read(getClass().getResource("/knight/knightMoveRight2.png"));
-
-            this.moveLeft[0] = ImageIO.read(getClass().getResource("/knight/knightMoveLeft1.png"));
-            this.moveLeft[1] = ImageIO.read(getClass().getResource("/knight/knightMoveLeft2.png"));
-
-            this.attack[0] = ImageIO.read(getClass().getResource("/knight/knightAttack1.png"));
-            this.attack[1] = ImageIO.read(getClass().getResource("/knight/knightAttack2.png"));
+            this.image = ImageIO.read(getClass().getResource("/knight/knightMoveRight1.png"));
         } catch (IOException e) {
-            this.moveRight[0] = null;
-            this.moveRight[1] = null;
-
-            this.moveLeft[0] = null;
-            this.moveLeft[1] = null;
-
-            this.attack[0] = null;
-            this.attack[1] = null;
+            this.image = null;
         }
     }
 
@@ -67,25 +44,6 @@ public class Knight extends Hero {
      * @param g2 - allows to draw images
      */
     public void draw(Graphics2D g2) {
-        BufferedImage currentImage = null;
-        if (this.animationTick >= 5) {
-            this.currentFrame++;
-            if (this.currentFrame == 2) {
-                this.currentFrame = 0;
-            }
-
-            switch (this.getFrame()) {
-                case 0:
-                    currentImage = this.moveRight[currentFrame];
-                    break;
-                case 1:
-                    currentImage = this.moveLeft[currentFrame];
-                    break;
-                case 2:
-                    currentImage = this.attack[currentFrame];
-                    break;
-            }
-        }
-        g2.drawImage(currentImage, this.getX(), this.getY(), 100, 100, null);
+        g2.drawImage(this.image, this.getX(), this.getY(), 50, 50, null);
     }
 }

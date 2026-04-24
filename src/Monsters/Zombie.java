@@ -2,7 +2,6 @@ package Monsters;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -10,39 +9,17 @@ import java.util.ArrayList;
  * Class, which extends Monsters.Enemy, characterizes a zombie
  */
 public class Zombie extends Enemy {
-    private BufferedImage[] move = new BufferedImage[2];
-    private BufferedImage[] attack = new BufferedImage[2];
-    private BufferedImage[] death = new BufferedImage[2];
-
-    private int animationTick;
-    private int currentFrame;
+    private BufferedImage image;
 
     /**
      * Constructor
      */
-    public Zombie() {
-        super(0, 0, 250, 20, 5, 15);
-
-        this.animationTick = 0;
-        this.currentFrame = 0;
+    public Zombie(int x, int y) {
+        super(x, y, 250, 20, 5, 15);
         try {
-            this.move[0] = ImageIO.read(getClass().getResource("/zombie/zombieGo1.png"));
-            this.move[1] = ImageIO.read(getClass().getResource("/zombie/zombieGo2.png"));
-
-            this.attack[0] = ImageIO.read(getClass().getResource("/zombie/zombieGo1.png"));
-            this.attack[1] = ImageIO.read(getClass().getResource("/zombie/zombieAttack2.png"));
-
-            this.death[0] = ImageIO.read(getClass().getResource("/zombie/zombieGo1.png"));
-            this.death[1] = ImageIO.read(getClass().getResource("/zombie/zombieDeath2.png"));
+            this.image = ImageIO.read(getClass().getResource("/zombie/zombieGo1.png"));
         } catch (IOException e) {
-            this.move[0] = null;
-            this.move[1] = null;
-
-            this.attack[0] = null;
-            this.attack[1] = null;
-
-            this.death[0] = null;
-            this.death[1] = null;
+            this.image = null;
         }
     }
 
@@ -52,7 +29,7 @@ public class Zombie extends Enemy {
     @Override
     public ArrayList<Enemy> deadAction() {
         ArrayList<Enemy> newSkelEton = new ArrayList<>();
-        newSkelEton.add(new Skeleton());
+        newSkelEton.add(new Skeleton(this.getX(), this.getY()));
         return newSkelEton;
     }
 
@@ -62,25 +39,6 @@ public class Zombie extends Enemy {
      */
     @Override
     public void draw(Graphics2D g2) {
-        BufferedImage currentImage = null;
-        if (this.animationTick >= 5) {
-            this.currentFrame++;
-            if (this.currentFrame == 2) {
-                this.currentFrame = 0;
-            }
-
-            switch (this.getFrame()) {
-                case 0:
-                    currentImage = this.move[currentFrame];
-                    break;
-                case 1:
-                    currentImage = this.attack[currentFrame];
-                    break;
-                case 2:
-                    currentImage = this.death[currentFrame];
-                    break;
-            }
-        }
-        g2.drawImage(currentImage, this.getX(), this.getY(), 100, 100, null);
+        g2.drawImage(this.image, this.getX(), this.getY(), 50, 50, null);
     }
 }
