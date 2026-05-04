@@ -17,7 +17,7 @@ public class Warrior extends Hero {
      * Constructor
      */
     public Warrior(int x, int y) {
-        super(x, y, 30, 20);
+        super(x, y, 10, 15);
         try {
             this.image = ImageIO.read(getClass().getResource("/warrior/warriorMoveRight1.png"));
         } catch (IOException e) {

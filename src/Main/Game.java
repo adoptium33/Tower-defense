@@ -4,7 +4,9 @@ import Monsters.Enemy;
 import Monsters.Skeleton;
 import Monsters.Slime;
 import Monsters.Zombie;
+import Player.Knight;
 import Player.Tower;
+import Player.Warrior;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -18,14 +20,28 @@ import java.util.ArrayList;
 /**
  * Class, which has the largest part of game's logic
  */
-public class Game extends JPanel implements Runnable, ActionListener {
+public class Game extends JPanel implements ActionListener {
     private ArrayList<Enemy> enemies;
     private Tower tower;
 
     private int wave;
     private int coins;
+    private boolean start;
 
     private BufferedImage background;
+
+    private JButton startButton;
+    private JButton towerLvlUpButton;
+    private JButton addWarriorButton;
+    private JButton addKnightButton;
+
+    private JLabel waveLabel;
+    private JLabel infoLabel;
+    private JLabel coinsLabel;
+    private JLabel towerHpLabel;
+    private JLabel towerLvlUpLabel;
+    private JLabel addWarriorLabel;
+    private JLabel addKnightLabel;
 
     /**
      * Constructor
@@ -33,45 +49,140 @@ public class Game extends JPanel implements Runnable, ActionListener {
     public Game() {
         this.enemies = new ArrayList<>();
         this.tower = new Tower();
-        this.wave = 1;
+        this.wave = 0;
         this.coins = 0;
+        this.start = false;
 
         this.setPreferredSize(new Dimension(1400, 800));
         try {
             this.background = ImageIO.read(getClass().getResource("/background.png"));
         } catch (IOException e) {
-            background = null;
+            this.background = null;
             System.out.println("Wrong path to background file");
         }
 
-        Thread t = new Thread();   //TODO try Timer class instead of Thread and Runnable
-        t.start();
+
+
+        //BUTTONS AND LABELS
+        this.setLayout(null);
+
+        this.startButton = new JButton("Start wave");
+        this.startButton.setBounds(1230, 710, 150, 75);
+        this.startButton.addActionListener( e -> {
+            this.wave();
+        });
+        this.add(this.startButton);
+
+        this.towerLvlUpButton = new JButton("Tower lvl up");
+        this.towerLvlUpButton.setBounds(20, 20, 150, 50);
+        this.towerLvlUpButton.addActionListener( e -> {
+            this.towerLvlUp();
+            this.towerLvlUpLabel.setText("Price: " + this.tower.getPriceOfLvl());
+        });
+        this.add(this.towerLvlUpButton);
+
+        this.addWarriorButton = new JButton("Add warrior");
+        this.addWarriorButton.setBounds(190, 20, 150, 50);
+        this.addWarriorButton.addActionListener( e -> {
+            this.addWarrior();
+        });
+        this.add(this.addWarriorButton);
+
+        this.addKnightButton = new JButton("Add knight");
+        this.addKnightButton.setBounds(360, 20, 150, 50);
+        this.addKnightButton.addActionListener( e -> {
+            this.addKnight();
+        });
+        this.add(this.addKnightButton);
+
+        this.waveLabel = new JLabel("Wave: " + this.wave);
+        this.waveLabel.setBounds(530, 20, 150, 50);
+        this.add(this.waveLabel);
+
+        this.infoLabel = new JLabel("");
+        this.infoLabel.setBounds(670, 20, 200, 50);
+        this.add(this.infoLabel);
+
+        this.coinsLabel = new JLabel("Coins: " + this.coins);
+        this.coinsLabel.setBounds(600, 20, 150, 50);
+        this.add(this.coinsLabel);
+
+        this.towerHpLabel = new JLabel(this.tower.getHp() + "/" + this.tower.getMaxHp());
+        this.towerHpLabel.setBounds(220, 150, 500, 50);
+        this.add(this.towerHpLabel);
+
+        this.towerLvlUpLabel = new JLabel("Price: " + this.tower.getPriceOfLvl());
+        this.towerLvlUpLabel.setBounds(70, 70, 150, 50);
+        this.add(this.towerLvlUpLabel);
+
+        this.addWarriorLabel = new JLabel("Price: 100");
+        this.addWarriorLabel.setBounds(235, 70, 150, 50);
+        this.add(this.addWarriorLabel);
+
+        this.addKnightLabel = new JLabel("Price: 100");
+        this.addKnightLabel.setBounds(405, 70, 150, 50);
+        this.add(this.addKnightLabel);
     }
 
     /**
-     * Method from interface Runnable, which allows to start the program
+     * Start of the game
      */
-    @Override
-    public void run() {
-        //TODO method run logic
-    }
+    public void start() {
+        Timer timer = new Timer( 1000, e -> {
+            if (this.start) {
+                this.tower.start();
 
-    /**
-     * Method with main game logic
-     */
-    public void mainLogic() {
-        this.wave();
+                for (Enemy enemy : this.enemies) {
+                    boolean areNearHeroes = false;
 
-        while (!enemies.isEmpty()) {
-            Enemy nearest = enemies.get(0);
-            for (Enemy enemy : this.enemies) {
-                enemy.go(this.tower);
-                if (enemy.getX() < nearest.getX()) {
-                    nearest = enemy;
+                    if (enemy.getX() <= this.tower.getX() + 501) {
+                        enemy.attack(this.tower);
+                    }
+
+                    for (Warrior w : this.tower.getWarriors()) {
+                        if (w.getX() >= enemy.getX() - 5 && w.getX() <= enemy.getX() + 50 + 5) {
+                            w.attack(enemy);
+                            areNearHeroes = true;
+                        }
+                    }
+
+                    for (Knight k : this.tower.getKnights()) {
+                        if (k.getX() >= enemy.getX() - 5 && k.getX() <= enemy.getX() + 50 + 5) {
+                            k.attack(enemy);
+                            areNearHeroes = true;
+                        }
+                    }
+
+                    if (!areNearHeroes) {
+                        enemy.go(this.tower);
+                    } else {
+                        enemy.goSlower(this.tower);
+                    }
+                }
+
+                if (this.enemies.isEmpty()) {
+                    this.infoLabel.setText("Victory! Level complete!");
+                    this.waveLabel.setText("Wave: " + this.wave);
+                    this.tower.toStratPosition();
+                    this.start = false;
+                }
+
+                if (this.tower.getHp() == 0) {
+                    this.infoLabel.setText("Defeat:( Try again!");
+                    this.enemies.clear();
+                    this.tower.toStratPosition();
+                    this.tower.setHp();
+                    this.start = false;
                 }
             }
-            this.tower.start(nearest);
-        }
+            this.areMonstersAlive();
+            this.infoLabel.setText("");
+            this.coinsLabel.setText("Coins: " + this.coins);
+            this.towerHpLabel.setText(this.tower.getHp() + "/" + this.tower.getMaxHp());
+            repaint();
+        });
+
+        timer.start();
     }
 
     /**
@@ -80,7 +191,8 @@ public class Game extends JPanel implements Runnable, ActionListener {
     public void wave() {
         int x = 0;
         int y = 0;
-        for (int i = 0; i < this.wave + 5; i++) {
+        this.wave += 1;
+        for (int i = 0; i < this.wave + 1; i++) {
             this.enemies.add(new Skeleton(1300 + x, 600 + y));
 
             this.enemies.add(new Zombie(1300 + x, 650 - y));
@@ -95,6 +207,8 @@ public class Game extends JPanel implements Runnable, ActionListener {
                 y = 10;
             }
         }
+        this.start = true;
+        repaint();
     }
 
     /**
@@ -106,22 +220,13 @@ public class Game extends JPanel implements Runnable, ActionListener {
                 this.coins += this.enemies.get(i).getPrice();
 
                 ArrayList<Enemy> newEnemies = this.enemies.get(i).deadAction();
-                if (!newEnemies.isEmpty() && newEnemies != null) {
-                    for (Enemy enemy : newEnemies) {
-                        this.enemies.add(enemy);
-                    }
+                if (!newEnemies.isEmpty()) {
+                    this.enemies.addAll(newEnemies);
                 }
 
                 this.enemies.remove(i);
             }
         }
-    }
-
-    /**
-     * Method, which ends the wave
-     */
-    public void waveLvlUp() {
-        this.wave += 1;
     }
 
     /**
@@ -131,6 +236,9 @@ public class Game extends JPanel implements Runnable, ActionListener {
         if (this.coins >= this.tower.getPriceOfLvl()) {
             this.tower.lvlUp();
             this.coins -= this.tower.getPriceOfLvl();
+            this.tower.changePrice();
+        } else {
+            this.infoLabel.setText("You don't have enough coins");
         }
     }
 
@@ -138,16 +246,24 @@ public class Game extends JPanel implements Runnable, ActionListener {
      * Method, which adds 1 more knight
      */
     public void addKnight() {
-        this.tower.addKnight();
-        this.coins -= 100;
+        if (this.coins >= 100) {
+            this.tower.addKnight();
+            this.coins -= 100;
+        } else {
+            this.infoLabel.setText("You don't have enough coins");
+        }
     }
 
     /**
      * Method, which adds 1 more warior
      */
     public void addWarrior() {
-        this.tower.addWarrior();
-        this.coins -= 100;
+        if (this.coins >= 100) {
+            this.tower.addWarrior();
+            this.coins -= 100;
+        } else {
+            this.infoLabel.setText("You don't have enough coins");
+        }
     }
 
     /**
@@ -168,7 +284,7 @@ public class Game extends JPanel implements Runnable, ActionListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Graphics2D g2 = (Graphics2D) g;
+        Graphics2D g2 = (Graphics2D)g;
 
         g2.drawImage(this.background, 0, 0, 1400, 800, null);
 

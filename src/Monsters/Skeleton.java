@@ -15,7 +15,7 @@ public class Skeleton extends Enemy {
      * Constructor
      */
     public Skeleton(int x, int y) {
-        super(x, y, 100, 40, 15, 10);
+        super(x, y, 150, 30, 15, 10);
         try {
             this.image = ImageIO.read(getClass().getResource("/skeleton/skeletonGo1.png"));
         } catch (IOException e) {

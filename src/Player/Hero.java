@@ -2,12 +2,15 @@ package Player;
 
 import Monsters.Enemy;
 
+import javax.swing.*;
+
 public abstract class Hero {
     private int x;
     private int y;
     private int atk;
     private int speed;
     private boolean superhit;
+    private boolean endOfSuperHit;
 
     /**
      * Constructor
@@ -22,21 +25,14 @@ public abstract class Hero {
         this.atk = atk;
         this.speed = speed;
         this.superhit = false;
+        this.endOfSuperHit = false;
     }
 
     /**
      * Player.Hero's movement
-     * @param enemy - object, to which hero goes
      */
-    public void go(Enemy enemy) {
-        while (this.x != enemy.getX() + 5 || this.x != enemy.getX() - 5) {
-            if (this.x < enemy.getX() - 5) {
-                this.x += this.speed;
-            } else if (this.x > enemy.getX() + 5) {
-                this.x -= this.speed;
-            }
-        }
-        this.attack(enemy);
+    public void go() {
+        this.x += this.speed;
     }
 
     /**
@@ -44,9 +40,7 @@ public abstract class Hero {
      * @param enemy - object, attacked by hero
      */
     public void attack(Enemy enemy) {
-        while (!enemy.isDead()) {
-            enemy.lossHp(this.atk);
-        }
+        enemy.lossHp(this.atk);
     }
 
     /**
@@ -58,25 +52,16 @@ public abstract class Hero {
     }
 
     /**
-     * Method which allows user to start superHit of hero for a 60 seconds,
-     * method was fixed by Gemini AI, cause my code interrupts the main thread
+     * Method which allows user to start superHit of hero for 60 seconds
      */
     public void superHit() {
-        Thread timer = new Thread(() -> {
-            try {
-                this.superhit = true;
-
-                for (int i = 60; i > 0; i--) {
-                    Thread.sleep(1000);
-                }
-
-                this.superhit = false;
-            } catch (InterruptedException e) {
-                this.superhit = false;
-            }
+        this.superhit = true;
+        Timer t = new Timer(60000, e -> {
+            this.superhit = false;
+            this.endOfSuperHit = true;
         });
-
-        timer.start();
+        t.setRepeats(false);
+        t.start();
     }
 
     /**
@@ -84,18 +69,18 @@ public abstract class Hero {
      */
     public void increaseStats () {
         this.atk += 15;
-        this.speed += 10;
+        this.speed += 5;
     }
     public void decreaseStats () {
         this.atk -= 15;
-        this.speed -= 10;
+        this.speed -= 5;
     }
 
     /**
      * Getters
      */
     public boolean isSuperhit() {
-        return superhit;
+        return this.superhit;
     }
 
     public int getX() {
@@ -104,5 +89,23 @@ public abstract class Hero {
 
     public int getY() {
         return this.y;
+    }
+
+    protected boolean isEndOfSuperHit() {
+        return this.endOfSuperHit;
+    }
+    /**
+     * Setters
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    protected void setEndOfSuperHit() {
+        this.endOfSuperHit = false;
     }
 }

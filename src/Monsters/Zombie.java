@@ -15,7 +15,7 @@ public class Zombie extends Enemy {
      * Constructor
      */
     public Zombie(int x, int y) {
-        super(x, y, 250, 20, 5, 15);
+        super(x, y, 250, 20, 10, 15);
         try {
             this.image = ImageIO.read(getClass().getResource("/zombie/zombieGo1.png"));
         } catch (IOException e) {

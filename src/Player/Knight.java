@@ -17,7 +17,7 @@ public class Knight extends Hero {
      * Constructor
      */
     public Knight(int x, int y) {
-        super(x, y, 40, 10);
+        super(x, y, 20, 10);
         try {
             this.image = ImageIO.read(getClass().getResource("/knight/knightMoveRight1.png"));
         } catch (IOException e) {
@@ -34,8 +34,10 @@ public class Knight extends Hero {
         super.attack(enemy);
         if (this.isSuperhit()) {
             this.increaseStats();
-        } else {
+        }
+        if (this.isEndOfSuperHit()) {
             this.decreaseStats();
+            this.setEndOfSuperHit();
         }
     }
 

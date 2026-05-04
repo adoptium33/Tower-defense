@@ -22,5 +22,7 @@ public class Main {
 
         f.setLocationRelativeTo(null);
         f.setVisible(true);
+
+        g.start();
     }
 }

@@ -1,7 +1,5 @@
 package Player;
 
-import Monsters.Enemy;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
@@ -48,22 +46,21 @@ public class Tower {
         }
 
         try {
-            image = ImageIO.read(getClass().getResource("/tower.png"));
+            this.image = ImageIO.read(getClass().getResource("/tower.png"));
         } catch  (IOException e) {
-            image = null;
+            this.image = null;
         }
     }
 
     /**
      * The start of hero's moving
-     * @param enemy - object, to which hero moves
      */
-    public void start(Enemy enemy) {
+    public void start() {
         for (Knight knight : this.knights) {
-            knight.go(enemy);
+            knight.go();
         }
         for (Warrior warrior : this.warriors) {
-            warrior.go(enemy);
+            warrior.go();
         }
     }
 
@@ -80,8 +77,8 @@ public class Tower {
      */
     public void lvlUp() {
         this.lvl += 1;
-        this.maxHp += 100;
-        this.hp += 100;
+        this.maxHp += 50;
+        this.hp += 50;
         for (Knight knight : this.knights) {
             knight.lvlUp();
         }
@@ -132,6 +129,37 @@ public class Tower {
     }
 
     /**
+     * Method, which returns all heroes to their start positions
+     */
+    public void toStratPosition() {
+        int x = 0;
+        int y = 10;
+        for (Knight k : this.knights) {
+            k.setX(500 + x);
+            k.setY(650 - y);
+            x += 10;
+            if (y > 0) {
+                y = -10;
+            } else {
+                y = 10;
+            }
+        }
+
+        x = 0;
+        y = 10;
+        for (Warrior w : this.warriors) {
+            w.setX(500 + x);
+            w.setY(600 + y);
+            x += 10;
+            if (y > 0) {
+                y = -10;
+            } else {
+                y = 10;
+            }
+        }
+    }
+
+    /**
      * Method, which draws tower
      * @param g2 - allows to draw image
      */
@@ -156,5 +184,28 @@ public class Tower {
 
     public int getX() {
         return 0;
+    }
+
+    public ArrayList<Knight> getKnights() {
+        return this.knights;
+    }
+
+    public ArrayList<Warrior> getWarriors() {
+        return this.warriors;
+    }
+
+    public int getHp () {
+        return this.hp;
+    }
+
+    public int getMaxHp() {
+        return this.maxHp;
+    }
+
+    /**
+     * Setters
+     */
+    public void setHp() {
+        this.hp = this.maxHp;
     }
 }

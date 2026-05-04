@@ -15,7 +15,7 @@ public class Slime extends Enemy {
      * Constructor
      */
     public Slime(int x, int y) {
-        super(x, y, 70, 25, 25, 5);
+        super(x, y, 70, 15, 25, 5);
         try {
             this.image = ImageIO.read(getClass().getResource("/slime/slimeGo1.png"));
         } catch (IOException e) {
@@ -28,20 +28,20 @@ public class Slime extends Enemy {
      */
     @Override
     public ArrayList<Enemy> deadAction() {
-        if (this.getMaxHp() >= 50) {
+        if (this.getMaxHp() == 70) {
             ArrayList<Enemy> newSlimes = new ArrayList<>();
 
-            Slime slime1 = new Slime(this.getX(), this.getY() - 10);
+            Slime slime1 = new Slime(this.getX(), this.getY());
             slime1.setMaxHp(this.getMaxHp() / 2);
             newSlimes.add(slime1);
 
-            Slime slime2 = new Slime(this.getX(), this.getY());
+            Slime slime2 = new Slime(this.getX() - 10, this.getY());
             slime2.setMaxHp(this.getMaxHp() / 2);
             newSlimes.add(slime2);
 
             return newSlimes;
         }
-        return null;
+        return new ArrayList<>();
     }
 
     /**

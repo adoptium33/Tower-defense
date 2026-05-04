@@ -64,16 +64,24 @@ public abstract class Enemy {
      * @param tower - object, to which monster goes
      */
     public void go(Tower tower) {
-        while (this.x > tower.getX() + 5) {
+        if (this.x > tower.getX() + 500) {
             this.x -= this.speed;
         }
+    }
+
+    /**
+     * Monster moves slower if heroes near him
+     * @param tower - object, to which monster goes
+     */
+    public void goSlower(Tower tower) {
+        this.x -= (this.speed - 7);
     }
 
     /**
      * Method, which starts, when monster is dead
      */
     public ArrayList<Enemy> deadAction() {
-        return null;
+        return new ArrayList<>();
     }
 
     /**
@@ -113,5 +121,6 @@ public abstract class Enemy {
      */
     public void setMaxHp(int maxHp) {
         this.maxHp = maxHp;
+        this.hp = maxHp;
     }
 }
