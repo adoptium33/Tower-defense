@@ -1,8 +1,8 @@
-package Monsters;
+package monsters;
 
-import Player.Tower;
+import player.Tower;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 /**

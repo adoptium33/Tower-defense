@@ -1,8 +1,8 @@
-package Player;
+package player;
 
-import Monsters.Enemy;
+import monsters.Enemy;
 
-import javax.swing.*;
+import javax.swing.Timer;
 
 public abstract class Hero {
     private int x;
@@ -33,6 +33,9 @@ public abstract class Hero {
      */
     public void go() {
         this.x += this.speed;
+        if (this.x >= 1400) {
+            this.x = 500;
+        }
     }
 
     /**
@@ -47,8 +50,8 @@ public abstract class Hero {
      * Method, which increases a hero
      */
     public void lvlUp() {
-        this.atk += 5;
-        this.speed += 2;
+        this.atk += 1;
+        this.speed += 1;
     }
 
     /**

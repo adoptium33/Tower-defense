@@ -1,9 +1,9 @@
-package Player;
+package player;
 
-import Monsters.Enemy;
+import monsters.Enemy;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -32,6 +32,7 @@ public class Knight extends Hero {
     @Override
     public void attack(Enemy enemy) {
         super.attack(enemy);
+        /*
         if (this.isSuperhit()) {
             this.increaseStats();
         }
@@ -39,6 +40,7 @@ public class Knight extends Hero {
             this.decreaseStats();
             this.setEndOfSuperHit();
         }
+         */
     }
 
     /**

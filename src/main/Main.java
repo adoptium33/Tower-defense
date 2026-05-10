@@ -1,6 +1,6 @@
-package Main;
+package main;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
 /**
  * Main.Main class, which starts the program

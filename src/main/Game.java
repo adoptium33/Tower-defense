@@ -1,16 +1,21 @@
-package Main;
+package main;
 
-import Monsters.Enemy;
-import Monsters.Skeleton;
-import Monsters.Slime;
-import Monsters.Zombie;
-import Player.Knight;
-import Player.Tower;
-import Player.Warrior;
+import monsters.Enemy;
+import monsters.Skeleton;
+import monsters.Slime;
+import monsters.Zombie;
+import player.Knight;
+import player.Tower;
+import player.Warrior;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.Timer;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -34,6 +39,7 @@ public class Game extends JPanel implements ActionListener {
     private JButton towerLvlUpButton;
     private JButton addWarriorButton;
     private JButton addKnightButton;
+    private JButton superHitButton;
 
     private JLabel waveLabel;
     private JLabel infoLabel;
@@ -70,6 +76,7 @@ public class Game extends JPanel implements ActionListener {
         this.startButton.setBounds(1230, 710, 150, 75);
         this.startButton.addActionListener( e -> {
             this.wave();
+            this.startButton.setEnabled(false);
         });
         this.add(this.startButton);
 
@@ -94,6 +101,14 @@ public class Game extends JPanel implements ActionListener {
             this.addKnight();
         });
         this.add(this.addKnightButton);
+
+        this.superHitButton = new JButton("Super hit (60 seconds)");
+        this.superHitButton.setBounds(1220, 20, 170, 75);
+        this.superHitButton.addActionListener( e -> {
+            this.tower.superHit();
+            this.superHitButton.setEnabled(false);
+        });
+        this.add(this.superHitButton);
 
         this.waveLabel = new JLabel("Wave: " + this.wave);
         this.waveLabel.setBounds(530, 20, 150, 50);
@@ -163,12 +178,17 @@ public class Game extends JPanel implements ActionListener {
                 if (this.enemies.isEmpty()) {
                     this.infoLabel.setText("Victory! Level complete!");
                     this.waveLabel.setText("Wave: " + this.wave);
+                    this.superHitButton.setEnabled(true);
+                    this.startButton.setEnabled(true);
                     this.tower.toStratPosition();
+                    this.tower.setHp();
                     this.start = false;
                 }
 
-                if (this.tower.getHp() == 0) {
+                if (this.tower.getHp() <= 0) {
                     this.infoLabel.setText("Defeat:( Try again!");
+                    this.superHitButton.setEnabled(true);
+                    this.startButton.setEnabled(true);
                     this.enemies.clear();
                     this.tower.toStratPosition();
                     this.tower.setHp();

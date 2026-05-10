@@ -1,6 +1,6 @@
-package Monsters;
+package monsters;
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class Zombie extends Enemy {
      * Constructor
      */
     public Zombie(int x, int y) {
-        super(x, y, 250, 20, 10, 15);
+        super(x, y, 300, 20, 10, 15);
         try {
             this.image = ImageIO.read(getClass().getResource("/zombie/zombieGo1.png"));
         } catch (IOException e) {

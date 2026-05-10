@@ -1,7 +1,7 @@
-package Monsters;
+package monsters;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -15,7 +15,7 @@ public class Skeleton extends Enemy {
      * Constructor
      */
     public Skeleton(int x, int y) {
-        super(x, y, 150, 30, 15, 10);
+        super(x, y, 200, 30, 15, 10);
         try {
             this.image = ImageIO.read(getClass().getResource("/skeleton/skeletonGo1.png"));
         } catch (IOException e) {
