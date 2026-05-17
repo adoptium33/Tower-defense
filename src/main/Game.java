@@ -257,6 +257,7 @@ public class Game extends JPanel implements ActionListener {
             this.tower.lvlUp();
             this.coins -= this.tower.getPriceOfLvl();
             this.tower.changePrice();
+            this.towerLvlUpLabel.setText("Price: " + this.tower.getPriceOfLvl());
         } else {
             this.infoLabel.setText("You don't have enough coins");
         }

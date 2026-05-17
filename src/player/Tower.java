@@ -95,10 +95,10 @@ public class Tower {
             this.priceOfLvl = 100;
         }
         if (this.lvl > 30 && this.lvl < 50) {
-            this.priceOfLvl = 120;
+            this.priceOfLvl = 200;
         }
         if (this.lvl > 50) {
-            this.priceOfLvl = 150;
+            this.priceOfLvl = 500;
         }
     }
 
@@ -194,7 +194,7 @@ public class Tower {
         return this.warriors;
     }
 
-    public int getHp () {
+    public int getHp() {
         return this.hp;
     }
 

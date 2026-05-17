@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 /**
- * Class, that extends Player.Hero, characterized Player.Warrior
+ * Class, that extends Player.Hero, characterizes warrior
  */
 public class Warrior extends Hero {
     private BufferedImage image;

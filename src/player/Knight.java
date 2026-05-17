@@ -32,15 +32,7 @@ public class Knight extends Hero {
     @Override
     public void attack(Enemy enemy) {
         super.attack(enemy);
-        /*
-        if (this.isSuperhit()) {
-            this.increaseStats();
-        }
-        if (this.isEndOfSuperHit()) {
-            this.decreaseStats();
-            this.setEndOfSuperHit();
-        }
-         */
+        //EXPANSION INTO THE FUTURE
     }
 
     /**

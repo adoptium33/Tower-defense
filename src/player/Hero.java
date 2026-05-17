@@ -4,6 +4,9 @@ import monsters.Enemy;
 
 import javax.swing.Timer;
 
+/**
+ * Abstract class, that characterizes heroes
+ */
 public abstract class Hero {
     private int x;
     private int y;
@@ -47,7 +50,7 @@ public abstract class Hero {
     }
 
     /**
-     * Method, which increases a hero
+     * Method, which increases a hero's level
      */
     public void lvlUp() {
         this.atk += 1;

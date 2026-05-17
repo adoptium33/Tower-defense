@@ -74,7 +74,9 @@ public abstract class Enemy {
      * @param tower - object, to which monster goes
      */
     public void goSlower(Tower tower) {
-        this.x -= (this.speed - 7);
+        if (this.x > tower.getX() + 500) {
+            this.x -= (this.speed - 7);
+        }
     }
 
     /**
